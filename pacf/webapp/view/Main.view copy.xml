@@ -1,0 +1,87 @@
+<mvc:View 
+  controllerName="pacf.controller.Main"
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:cards="sap.f.cards"
+  xmlns:l="sap.ui.layout">
+  <NavContainer id="idMainNavContainer" >
+    <Page id="page" title="{i18n>title}">
+      <headerContent>
+        <Button text="Compare" press="onNavTo" />
+      </headerContent>
+      <Carousel 
+        pages="{dataModel>/overviewSet}">
+        <ScrollContainer 
+          vertical="false" 
+          horizontal="false" 
+          class="sapUiContentPadding">
+
+          <f:Card>
+            <f:header>
+              <cards:Header
+                title="{dataModel>Name}"
+                subtitle="{dataModel>Symbol}"
+                iconSrc=""
+                iconDisplayShape="Square" />
+            </f:header>
+            <f:content>
+              
+              <l:VerticalLayout class="sapUiContentPadding" width="100%">
+                <l:BlockLayout>
+                <l:BlockLayoutRow >
+                  <l:BlockLayoutCell width="1">
+                    <HBox class="sapUiSmallMarginBottom">
+                      <Label text="Comparison" />
+                      <CheckBox />
+                    </HBox>
+                  </l:BlockLayoutCell>
+                  </l:BlockLayoutRow>
+                  <l:BlockLayoutRow>
+                    <l:BlockLayoutCell title="Specifications" width="1">
+                      <HBox class="sapUiTinyMarginBottom">
+                        <Label text="Sector" />
+                      </HBox>
+                      <HBox class="sapUiSmallMarginBottom">
+                        <Text text="{dataModel>Sector}" />
+                      </HBox>
+                      <HBox class="sapUiTinyMarginBottom">
+                        <Label text="Industry" />
+                      </HBox>
+                      <HBox class="sapUiSmallMarginBottom">
+                        <Text text="{dataModel>Industry}" />
+                      </HBox>
+                      <HBox class="sapUiTinyMarginBottom">
+                        <Label text="Market Capitalization" />
+                      </HBox>
+                      <HBox class="sapUiSmallMarginBottom">
+                        <Text text="{
+                          parts: ['dataModel>MarketCapitalization', 'dataModel>Currency'],
+                          type: 'sap.ui.model.type.Currency',
+                          formatOptions: {
+                            style : 'long'
+                          }
+                        }" />
+                      </HBox>
+                    </l:BlockLayoutCell>
+                    <l:BlockLayoutCell title="Description" width="1">
+                      <HBox class="sapUiSmallMarginBottom">
+                        <Text text="{dataModel>Description}" />
+                      </HBox>
+                    </l:BlockLayoutCell>
+                  </l:BlockLayoutRow>
+                </l:BlockLayout>
+              </l:VerticalLayout>
+            </f:content>
+          </f:Card>
+        </ScrollContainer>
+      <customLayout>
+        <CarouselLayout visiblePagesCount="3" />
+      </customLayout>
+      </Carousel>
+    </Page>
+    <core:Fragment fragmentName="pacf.view.Comparison" type="XML" />
+  </NavContainer>
+  
+</mvc:View>

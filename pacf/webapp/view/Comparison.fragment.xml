@@ -1,0 +1,381 @@
+<core:FragmentDefinition 
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+  xmlns:cards="sap.f.cards"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout">
+  <Page title="Comparison" showNavButton="true" navButtonPress="onPressDetailBack">
+    <subHeader>
+      <OverflowToolbar > 
+        <ToolbarSpacer />
+        <SegmentedButton selectedKey="{dataModel>/currentTimeScale}" selectionChange="onChangeTimeScale">
+          <items>
+            <SegmentedButtonItem text="Annual Reports" key="annualReports" />
+            <SegmentedButtonItem text="Quarterly Reports" key="quarterlyReports" />
+          </items>
+        </SegmentedButton>
+        <ToolbarSpacer />
+      </OverflowToolbar>
+    </subHeader>
+    <ScrollContainer width="100%">      
+      <HBox >
+        <VBox width="50%" alignItems="Center" class="sapUiTinyMarginTop">
+          <Toolbar >
+            <Label text="{= ${dataModel>/currentTimeScale}.includes('ann') ? 'Annual' : 'Quarterly'} Report Date" />
+            <Select 
+              id="idAnnualDateSelectA" 
+              items="{path: 'dataModel>/cashFlowDataCompanyA/annualReports'}"
+              change="filterTables">
+              <core:Item text="{dataModel>fiscalDateEnding}" key="{dataModel>fiscalDateEnding}" />
+            </Select>
+          </Toolbar>
+          <f:Card class="sapUiMediumMargin" >
+            <f:header>
+              <cards:Header 
+                title="Cash Flow Statements" 
+                subtitle="{dataModel>/filteredCashFlowDataA/symbol}"
+                statusText="{dataModel>/filteredCashFlowDataA/preDate}" />
+            </f:header>
+            <f:content>
+              <Table
+                showSeparators="None"
+                class="sapUiContentPadding"
+                fixedLayout="false">
+                <columns>
+                  <Column />
+                  <Column hAlign="End"/>
+                  <Column hAlign="End"/>
+                </columns>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Operating cash flow" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataA/operatingCashflow', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                    <ObjectStatus
+                      text="{dataModel>/filteredCashFlowDataA/operatingCashflowTrend} %"
+                      icon="{= ${dataModel>/filteredCashFlowDataA/operatingCashflowTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                      state="{= ${dataModel>/filteredCashFlowDataA/operatingCashflowTrend} > 0 ? 'Success' : 'Error' }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Cash flow from investing" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataA/cashflowFromInvestment', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                    <ObjectStatus
+                      text="{dataModel>/filteredCashFlowDataA/cashflowFromInvestmentTrend} %"
+                      icon="{= ${dataModel>/filteredCashFlowDataA/cashflowFromInvestmentTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                      state="{= ${dataModel>/filteredCashFlowDataA/cashflowFromInvestmentTrend} > 0 ? 'Success' : 'Error' }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Cash flow from financing" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataA/cashflowFromFinancing', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                    <ObjectStatus
+                      text="{dataModel>/filteredCashFlowDataA/cashflowFromFinancingTrend} %"
+                      icon="{= ${dataModel>/filteredCashFlowDataA/cashflowFromFinancingTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                      state="{= ${dataModel>/filteredCashFlowDataA/cashflowFromFinancingTrend} > 0 ? 'Success' : 'Error' }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Free cash flow" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataA/freeCashflow', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                    <ObjectStatus
+                      text="{dataModel>/filteredCashFlowDataA/freeCashflowTrend} %"
+                      icon="{= ${dataModel>/filteredCashFlowDataA/freeCashflowTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                      state="{= ${dataModel>/filteredCashFlowDataA/freeCashflowTrend} > 0 ? 'Success' : 'Error' }" />
+                 </cells>
+                </ColumnListItem>
+              </Table>
+            </f:content>
+          </f:Card>
+        </VBox>
+        <VBox width="50%" alignItems="Center" class="sapUiTinyMarginTop">
+          <Toolbar >
+            <Label text="{= ${dataModel>/currentTimeScale}.includes('ann') ? 'Annual' : 'Quarterly'} Report Date" />
+            <Select
+              id="idAnnualDateSelectB" 
+              items="{path: 'dataModel>/cashFlowDataCompanyB/annualReports'}"
+              change="filterTables">
+              <core:Item text="{dataModel>fiscalDateEnding}" key="{dataModel>fiscalDateEnding}" />
+            </Select>
+          </Toolbar>
+          <f:Card class="sapUiMediumMargin">
+            <f:header>
+              <cards:Header 
+                title="Cash Flow Statements" 
+                subtitle="{dataModel>/filteredCashFlowDataB/symbol}" 
+                statusText="{dataModel>/filteredCashFlowDataB/preDate}" />            
+              </f:header>
+            <f:content>
+              <Table
+                showSeparators="None"
+                class="sapUiContentPadding"
+                fixedLayout="false">
+                <columns>
+                  <Column />
+                  <Column hAlign="End"/>
+                  <Column hAlign="End"/>
+                </columns>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Operating cash flow" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataB/operatingCashflow', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                      <ObjectStatus
+                        text="{dataModel>/filteredCashFlowDataB/operatingCashflowTrend} %"
+                        icon="{= ${dataModel>/filteredCashFlowDataB/operatingCashflowTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                        state="{= ${dataModel>/filteredCashFlowDataB/operatingCashflowTrend} > 0 ? 'Success' : 'Error' }" />
+                 </cells>
+                </ColumnListItem>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Cash flow from investing" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataB/cashflowFromInvestment', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                      <ObjectStatus
+                        text="{dataModel>/filteredCashFlowDataB/cashflowFromInvestmentTrend} %"
+                        icon="{= ${dataModel>/filteredCashFlowDataB/cashflowFromInvestmentTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                        state="{= ${dataModel>/filteredCashFlowDataB/cashflowFromInvestmentTrend} > 0 ? 'Success' : 'Error' }" />
+                 </cells>
+                </ColumnListItem>
+                 <ColumnListItem>
+                  <cells>
+                    <Label text="Cash flow from financing" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataB/cashflowFromFinancing', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }" />
+                      <ObjectStatus
+                        text="{dataModel>/filteredCashFlowDataB/cashflowFromFinancingTrend} %"
+                        icon="{= ${dataModel>/filteredCashFlowDataB/cashflowFromFinancingTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                        state="{= ${dataModel>/filteredCashFlowDataB/cashflowFromFinancingTrend} > 0 ? 'Success' : 'Error' }" />
+                 </cells>
+                </ColumnListItem>
+                <ColumnListItem>
+                  <cells>
+                    <Label text="Free cash flow" />
+                    <ObjectNumber 
+                      class="sapUiTinyMargin sapUiSmallMarginEnd"
+                      number="{
+                        parts: ['dataModel>/filteredCashFlowDataB/freeCashflow', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                        type: 'sap.ui.model.type.Currency',
+                        formatOptions: {
+                          showMeasure: false
+                        }
+                      }"/>
+                      <ObjectStatus
+                        text="{dataModel>/filteredCashFlowDataB/freeCashflowTrend} %"
+                        icon="{= ${dataModel>/filteredCashFlowDataB/freeCashflowTrend} > 0 ? 'sap-icon://trend-up' : 'sap-icon://trend-down' }"
+                        state="{= ${dataModel>/filteredCashFlowDataB/freeCashflowTrend} > 0 ? 'Success' : 'Error' }" />
+                 </cells>
+                </ColumnListItem>
+              </Table>
+            </f:content>
+          </f:Card>
+        </VBox>
+      </HBox>
+
+      <Panel 
+        expandable="true" 
+        expanded="false" 
+        headerText="Table data" 
+        width="auto" 
+        class="sapUiSmallMargin">
+        <HBox >
+    
+          <VBox width="50%" >
+            <Table 
+              id="idAnnualCashFlowTable"
+              headerText="{dataModel>/filteredCashFlowDataA/symbol}" 
+              class="sapUiResponsiveContentPadding"
+              width="100%" >
+              <columns>
+                <Column >
+                  <!-- <Text text="{dataModel>Position}"/> -->
+                </Column>
+                <Column >
+                  <Text text="Amount in ({dataModel>/filteredCashFlowDataA/reportedCurrency})"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Net Income" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataA/netIncome', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Depreciation Depletion and Amortization" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataA/depreciationDepletionAndAmortization', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Change In Inventory" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataA/changeInInventory', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Change In Receivables" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataA/changeInReceivables', 'dataModel>/filteredCashFlowDataA/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>      
+          </VBox>
+          
+          <VBox width="50%">
+            <Table 
+              headerText="{dataModel>/filteredCashFlowDataB/symbol}" 
+              class="sapUiResponsiveContentPadding"
+              width="100%" >
+              <columns>
+                <Column >
+                  <!-- <Text text="{dataModel>Position}"/> -->
+                </Column>
+              <Column >
+                  <Text text="Amount in ({dataModel>/filteredCashFlowDataB/reportedCurrency})"/>
+                </Column>
+              </columns>
+              <items>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Net Income" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataB/netIncome', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Depreciation Depletion and Amortization" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataB/depreciationDepletionAndAmortization', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Change In Inventory" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataB/changeInInventory', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+                <ColumnListItem >
+                  <cells>
+                    <Text text="Change In Receivables" />
+                    <ObjectNumber number="{
+                      parts: ['dataModel>/filteredCashFlowDataB/changeInReceivables', 'dataModel>/filteredCashFlowDataB/reportedCurrency'],
+                      type: 'sap.ui.model.type.Currency',
+                      formatOptions: {
+                        showMeasure: false
+                      }
+                    }" />
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>   
+          </VBox>
+        </HBox>
+         
+      </Panel>
+
+      <core:Fragment fragmentName="pacf.view.ComparisonChart" type="XML" /> 
+      
+    </ScrollContainer>
+   
+  </Page>
+
+</core:FragmentDefinition>
+

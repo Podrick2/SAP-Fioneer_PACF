@@ -1,0 +1,78 @@
+<core:FragmentDefinition 
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+  xmlns:cards="sap.f.cards"
+	xmlns:f="sap.f"
+	xmlns:l="sap.ui.layout">
+  <f:Card visible="{= ${dataModel>/selectedOverviewCompany/Symbol} !== undefined}" >
+    <f:header>
+      <cards:Header
+        title="{dataModel>/selectedOverviewCompany/Name}"
+        subtitle="{dataModel>/selectedOverviewCompany/Symbol}"
+        iconSrc="sap-icon://manager-insight"
+        iconDisplayShape="Square" />
+    </f:header>
+    <f:content>
+      <l:VerticalLayout class="sapUiContentPadding" width="100%">
+        <l:BlockLayout>
+          <l:BlockLayoutRow>
+            <l:BlockLayoutCell width="1">
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="Sector" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <Text text="{dataModel>/selectedOverviewCompany/Sector}" />
+              </HBox>
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="Industry" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <Text text="{dataModel>/selectedOverviewCompany/Industry}" />
+              </HBox>
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="Market Capitalization" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <Text text="{
+                  parts: ['dataModel>/selectedOverviewCompany/MarketCapitalization', 'dataModel>/selectedOverviewCompany/Currency'],
+                  type: 'sap.ui.model.type.Currency',
+                  formatOptions: {
+                    style : 'long'
+                  }
+                }" />
+              </HBox>
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="EBITDA" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <Text text="{
+                  parts: ['dataModel>/selectedOverviewCompany/EBITDA', 'dataModel>/selectedOverviewCompany/Currency'],
+                  type: 'sap.ui.model.type.Currency',
+                  formatOptions: {
+                    style : 'long'
+                  }
+                }" />
+              </HBox>
+            </l:BlockLayoutCell>
+            <l:BlockLayoutCell titleLevel="H2" width="1">
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="Description" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <ExpandableText text="{dataModel>/selectedOverviewCompany/Description}" />
+              </HBox>
+              <HBox class="sapUiTinyMarginBottom">
+                <Label text="Address" />
+              </HBox>
+              <HBox class="sapUiSmallMarginBottom">
+                <Text text="{dataModel>/selectedOverviewCompany/Address}" />
+              </HBox>
+            </l:BlockLayoutCell>
+          </l:BlockLayoutRow>
+        </l:BlockLayout>
+      </l:VerticalLayout>
+    </f:content>
+  </f:Card>
+
+</core:FragmentDefinition>
+

@@ -1,0 +1,148 @@
+<core:FragmentDefinition 
+  xmlns:core="sap.ui.core"
+  xmlns="sap.m"
+  xmlns:viz="sap.viz.ui5.controls"
+  xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+  xmlns:viz.data="sap.viz.ui5.data" 
+	xmlns:l="sap.ui.layout">
+
+  <Panel 
+    expandable="true" 
+    expanded="false" 
+    headerText="Chart content" 
+    width="auto" 
+    class="sapUiSmallMargin">
+    <content>
+      <HBox >
+        <VBox items="{dataModel>/vizChartLineVisibility1}">
+          <HBox justifyContent="SpaceBetween">
+            <Label text="{dataModel>name}" design="Bold" class="sapUiTinyMarginTop" />
+            <Switch state="{dataModel>visible}" change='onChangeVizChartLines' />
+          </HBox>
+        </VBox>
+        <VBox items="{dataModel>/vizChartLineVisibility2}" class="sapUiSmallMarginBegin">
+          <HBox justifyContent="SpaceBetween">
+            <Label text="{dataModel>name}" design="Bold" class="sapUiTinyMarginTop" />
+            <Switch state="{dataModel>visible}" change='onChangeVizChartLines' />
+          </HBox>
+        </VBox>
+      </HBox>
+    </content>
+  </Panel>
+
+  <HBox justifyContent="SpaceBetween" width="100%">
+    <VBox width="50%" alignItems="Center">
+      <viz:VizFrame 
+        id="idLineVizFrameA" 
+        width="800px"
+        vizType='timeseries_line'>
+        <viz:dataset>
+          <viz.data:FlattenedDataset data="{dataModel>/vizChartDataCompanyA}">
+            <viz.data:dimensions>
+              <viz.data:DimensionDefinition 
+                name="Fiscal Date"
+                dataType="date"
+                value="{dataModel>date}" />
+            </viz.data:dimensions>
+            
+            <viz.data:measures>
+              <viz.data:MeasureDefinition 
+                name="Operating cash flow"
+                value="{dataModel>operatingCashflow}" />
+              <viz.data:MeasureDefinition 
+                name="Cash flow from Investment"
+                value="{dataModel>cashflowFromInvestment}" />
+              <viz.data:MeasureDefinition 
+                name="Cash flow from Financing"
+                value="{dataModel>cashflowFromFinancing}" />
+              <viz.data:MeasureDefinition 
+                name="Free cash flow"
+                value="{dataModel>freeCashflow}" />
+              <viz.data:MeasureDefinition 
+                name="Net Income"
+                value="{dataModel>netIncome}" />
+            </viz.data:measures>
+          </viz.data:FlattenedDataset>
+        </viz:dataset>
+
+        <viz:feeds>
+          <viz.feeds:FeedItem 
+            uid="valueAxis"
+            type="Measure"
+            values="Operating cash flow" />
+          <viz.feeds:FeedItem 
+            uid="valueAxis"
+            type="Measure"
+            values="Cash flow from Investment" /> 
+          <viz.feeds:FeedItem 
+            uid="valueAxis"
+            type="Measure"
+            values="Cash flow from Financing" /> 
+          <viz.feeds:FeedItem 
+            uid="timeAxis" 
+            type="Dimension"
+            values="Fiscal Date" />
+        </viz:feeds>
+        <viz:dependents>
+          <viz:Popover id="idPopOver" />
+        </viz:dependents>
+      </viz:VizFrame>
+    </VBox>
+
+    <VBox width="50%" alignItems="Center">
+      <viz:VizFrame 
+        id="idLineVizFrameB" 
+        width="800px"
+        vizType='timeseries_line'>
+        <viz:dataset>
+          <viz.data:FlattenedDataset data="{dataModel>/vizChartDataCompanyB}">
+            <viz.data:dimensions>
+              <viz.data:DimensionDefinition 
+                name="Fiscal Date"
+                dataType="date"
+                value="{dataModel>date}" />
+            </viz.data:dimensions>
+            
+            <viz.data:measures>
+              <viz.data:MeasureDefinition 
+                name="Operating cash flow"
+                value="{dataModel>operatingCashflow}" />
+              <viz.data:MeasureDefinition 
+                name="Cash flow from Investment"
+                value="{dataModel>cashflowFromInvestment}" />
+              <viz.data:MeasureDefinition 
+                name="Cash flow from Financing"
+                value="{dataModel>cashflowFromFinancing}" />
+              <viz.data:MeasureDefinition 
+                name="Free cash flow"
+                value="{dataModel>freeCashflow}" />
+              <viz.data:MeasureDefinition 
+                name="Net Income"
+                value="{dataModel>netIncome}" />
+            </viz.data:measures>
+          </viz.data:FlattenedDataset>
+        </viz:dataset>
+
+        <viz:feeds>
+          <viz.feeds:FeedItem
+            uid="valueAxis"
+            type="Measure"
+            values="Operating cash flow" />
+          <viz.feeds:FeedItem 
+            uid="valueAxis"
+            type="Measure"
+            values="Cash flow from Investment" /> 
+          <viz.feeds:FeedItem 
+            uid="valueAxis"
+            type="Measure"
+            values="Cash flow from Financing" /> 
+          <viz.feeds:FeedItem 
+            uid="timeAxis" 
+            type="Dimension"
+            values="Fiscal Date" />
+        </viz:feeds>
+      </viz:VizFrame>
+    </VBox>
+  </HBox>
+</core:FragmentDefinition>
+

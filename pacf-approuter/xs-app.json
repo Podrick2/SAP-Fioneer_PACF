@@ -1,0 +1,13 @@
+{
+  "authenticationMethod": "none",
+  "welcomeFile": "/pacf",
+  "routes": [
+    {
+      "source": "/alphavantage/(.*)$",
+      "target": "$1&apikey=VGX1ISKM8RPF2SJ4",
+      "destination": "Alphavantage_API",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    }
+  ]
+}

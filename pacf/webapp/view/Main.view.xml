@@ -1,0 +1,47 @@
+<mvc:View 
+  controllerName="pacf.controller.Main"
+  xmlns:core="sap.ui.core"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:cards="sap.f.cards"
+  xmlns:l="sap.ui.layout">
+  <Bar >
+    <contentMiddle>
+      <Title text="Apple Inc - Peer Analysis Cash Flow App" />
+    </contentMiddle>
+  </Bar>
+
+  <SplitContainer id="idSplitContainer">
+    <detailPages>
+      <Page title="Overview" class="sapUiContentPadding">
+        <core:Fragment fragmentName="pacf.view.CompanyCard" type="XML" />
+      </Page>
+      <core:Fragment fragmentName="pacf.view.Comparison" type="XML" />
+      
+    </detailPages>
+    <masterPages>
+      <Page title="Company to Compare">
+       <headerContent>
+          <Button text="Compare" press="onPressCompare" enabled="{= ${dataModel>/selectedCompareData}.length > 1 }" />
+        </headerContent>
+        <List 
+          mode="SingleSelect" 
+          items="{dataModel>/overviewSet}"
+          selectionChange="onCompanySelect">
+          <items> 
+            <StandardListItem 
+              title="{dataModel>Name}"
+              description="{dataModel>Symbol}"
+              type="Active"
+              press="onCompanyItemPress"
+              highlight="{= ${dataModel>/selectedOverviewCompany/Symbol} === ${dataModel>Symbol} ? 'Information' : 'None'}" 
+              visible="{= ${dataModel>Symbol} !== 'AAPL'}"
+              />
+          </items>
+        </List>
+      </Page>
+    </masterPages>
+  </SplitContainer>
+  
+</mvc:View>
